@@ -1,0 +1,22 @@
+{
+  "name": "@wavepoint/gatsby-source-onlinesales",
+  "version": "1.0.0",
+  "description": "Adds support for onlinesales backend data",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "WavePoint Co. Ltd.",
+  "license": "MIT",
+  "keywords": [
+    "gatsby",
+    "gatsby-plugin",
+    "plugin",
+    "remark",
+    "markdown",
+    "gatsby-transformer-remark",
+    "gatsby-transformer-plugin"
+  ],
+  "homepage": "https://github.com/peterliapin/gatsby-source-onlinesales#readme",
+  "url": "https://github.com/peterliapin/gatsby-source-onlinesales/issues"
+}
