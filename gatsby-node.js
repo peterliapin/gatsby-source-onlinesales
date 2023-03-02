@@ -57,14 +57,18 @@ exports.sourceNodes = async ({
     const nodeId = createNodeId(`${POST_NODE_TYPE}-${post.id}`);
     try {
     if (post.coverImageUrl){
-      const staticUrl = await processRemoteImage(options.prepareUrl(post.coverImageUrl), post.slug);
-      console.log(`Created ${staticUrl} image`);
-      post.coverImageUrl = staticUrl;
+      if (post.coverImageUrl.startsWith('/api/')) {
+        const staticUrl = await processRemoteImage(options.prepareUrl(post.coverImageUrl), post.slug);
+        console.log(`Created ${staticUrl} image`);
+        post.coverImageUrl = staticUrl;
+      }
     }
     if (content.data.avatar){
-      const staticUrl = await processRemoteImage(options.prepareUrl(post.avatar), post.slug);
-      console.log(`Created ${staticUrl} image`);
-      post.avatar = staticUrl;
+      if (post.coverImageUrl.startsWith('/api/')) {
+        const staticUrl = await processRemoteImage(options.prepareUrl(post.avatar), post.slug);
+        console.log(`Created ${staticUrl} image`);
+        post.avatar = staticUrl;
+      }
     }
 
     createNode({
