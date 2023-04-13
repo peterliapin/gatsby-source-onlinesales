@@ -63,8 +63,8 @@ exports.sourceNodes = async ({
         post.coverImageUrl = staticUrl;
       }
     }
-    if (content.data.avatar){
-      if (post.coverImageUrl.startsWith('/api/')) {
+    if (post.avatar){
+      if (post.avatar.startsWith('/api/')) {
         const staticUrl = await processRemoteImage(options.prepareUrl(post.avatar), post.slug);
         console.log(`Created ${staticUrl} image`);
         post.avatar = staticUrl;
