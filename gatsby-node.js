@@ -50,9 +50,9 @@ exports.sourceNodes = async ({
   // loop through data and create Gatsby nodes
   await Promise.all(allData.map(async post => {
     //Put post information in frontmatter
-    const content = matter(post.content);
+    const content = matter(post.body);
     Object.assign(post, content.data);
-    delete post.cotent;
+    delete post.body;
 
     const nodeId = createNodeId(`${POST_NODE_TYPE}-${post.id}`);
     try {
