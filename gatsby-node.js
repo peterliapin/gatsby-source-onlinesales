@@ -42,7 +42,7 @@ exports.sourceNodes = async ({
     const totalCount = response.headers['x-total-count'] || response.data.length; // fallback in case of old backend and pagination not available
     allData.push(...response.data);
     console.log(`Loaded ${allData.length} posts of ${totalCount}`);
-    if (totalCount == allData.length) {
+    if (allData.length >= totalCount) {
       break;
     }
   }
