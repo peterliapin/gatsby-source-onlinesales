@@ -4,9 +4,9 @@ Downloads posts data from [OnlineSales backend](https://github.com/peterliapin/o
 
 Thils plugin will create gatsby nodes with types:
 
-- OnlinesalesPost - for entities with type "post"
-- OnlinesalesPage - for entities with other types
-- OnlinesalesImage - file node for an image extracted from entity markdown body
+- OnlineSalesPost - for entities with type "post"
+- OnlineSalesPage - for entities with other types
+- OnlineSalesImage - file node for an image extracted from entity markdown body
 
 and additional attribues:
 
