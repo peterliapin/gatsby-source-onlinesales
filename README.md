@@ -18,7 +18,7 @@ and additional attribues:
 Attributes can be used in page template filename:
 
     blog/
-    	{OnlinesalesPost.slug}.tsx
+    	{OnlineSalesPost.slug}.tsx
 
 # Install
 
