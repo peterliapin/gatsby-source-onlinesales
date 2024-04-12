@@ -2,8 +2,8 @@ const remark = require("remark");
 const esmRequire = require("./esmRequire");
 const { visit } = esmRequire("unist-util-visit");
 
-const processRemoteImage = require("./processRemoteImage");
-const { IMAGE_FILE_TYPE } = require("./constants");
+const { processRemoteImage } = require("./processRemoteImage");
+const { createOnlineSalesImage } = require("./createOnlineSalesImage");
 
 const remarkProcessor = remark();
 
@@ -46,10 +46,6 @@ const getImageNodes = (MDTree) => {
 };
 
 const processImage = async (imageNode, apiUrl, nodePluginArgs) => {
-  const {
-    actions: { createNode },
-  } = nodePluginArgs;
-
   const imageMatch = matchCMSImage(imageNode);
 
   if (!imageMatch) {
@@ -67,31 +63,24 @@ const processImage = async (imageNode, apiUrl, nodePluginArgs) => {
 
   updateImageNode(imageNode, readyPath);
 
-  const imageNodeId = `${IMAGE_FILE_TYPE}-${fileNode.id}`;
-
-  await createNode({
-    id: imageNodeId,
-    staticPath: readyPath, // will be used as a fallback
-    parent: null,
-    children: [],
-    file: fileNode.id,
-    internal: {
-      type: IMAGE_FILE_TYPE,
-      content: fileNode.internal.content,
-      contentDigest: fileNode.internal.contentDigest,
-    },
-  });
+  const imageNodeId = await createOnlineSalesImage(
+    fileNode,
+    readyPath,
+    nodePluginArgs
+  );
 
   return imageNodeId;
 };
 
-const extractImages = async (postBody, apiUrl, nodePluginArgs) => {
+const extractImages = async (postBody, pluginOptions, nodePluginArgs) => {
   const MDTree = remarkProcessor.parse(postBody);
 
   const imageNodes = getImageNodes(MDTree);
 
   const imageFileNodes = await Promise.all(
-    imageNodes.map((node) => processImage(node, apiUrl, nodePluginArgs))
+    imageNodes.map((node) =>
+      processImage(node, pluginOptions.apiUrl, nodePluginArgs)
+    )
   );
 
   return {
@@ -100,4 +89,4 @@ const extractImages = async (postBody, apiUrl, nodePluginArgs) => {
   };
 };
 
-module.exports = extractImages;
+module.exports = { extractImages };
