@@ -30,4 +30,4 @@ const processRemoteImage = async (url, scope, nodePluginArgs) => {
   return { readyPath, fileNode };
 };
 
-module.exports = processRemoteImage;
+module.exports = { processRemoteImage };
