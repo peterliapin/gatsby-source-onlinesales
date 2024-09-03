@@ -3,7 +3,13 @@ const axios = require("axios");
 const fetchPosts = async (pluginOptions) => {
   let allData = [];
   const postsUrl = new URL(pluginOptions.postUrl);
+
   postsUrl.searchParams.set("filter[limit]", 100);
+
+  if (pluginOptions.language) {
+    postsUrl.searchParams.set("filter[where][language][like]", pluginOptions.language);
+  }
+
   while (true) {
     postsUrl.searchParams.set("filter[skip]", allData.length);
     const response = await axios.get(postsUrl.toString());
