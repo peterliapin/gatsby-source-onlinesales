@@ -16,8 +16,7 @@ const {
   IMAGE_FILE_TYPE,
 } = require("./constants");
 
-exports.onPreInit = () =>
-  console.log("Loaded gatsby-source-onlinesales plugin");
+exports.onPreInit = () => console.log("Loaded gatsby-source-onlinesales plugin");
 
 exports.sourceNodes = async (nodePluginArgs, pluginOptions) => {
   const {
@@ -38,13 +37,13 @@ exports.sourceNodes = async (nodePluginArgs, pluginOptions) => {
         const { coverImageNodeId } = await extractPostCoverImage(
           meta,
           pluginOptions,
-          nodePluginArgs
+          nodePluginArgs,
         );
 
         const { modifiedBody, imageFileNodes } = await extractImages(
           body,
           pluginOptions,
-          nodePluginArgs
+          nodePluginArgs,
         );
 
         const { relatedPostIds } = extractRelatedPosts(meta, nodePluginArgs);
@@ -70,7 +69,7 @@ exports.sourceNodes = async (nodePluginArgs, pluginOptions) => {
       } catch (e) {
         console.log(e);
       }
-    })
+    }),
   );
 };
 

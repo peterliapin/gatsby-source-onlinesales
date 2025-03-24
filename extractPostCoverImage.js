@@ -13,7 +13,7 @@ const extractPostCoverImage = async (meta, pluginOptions, nodePluginArgs) => {
       ? pluginOptions.prepareUrl(meta.coverImageUrl)
       : meta.coverImageUrl,
     `${getNodeId(meta, nodePluginArgs)}/cover`,
-    nodePluginArgs
+    nodePluginArgs,
   );
 
   meta.coverImageUrl = staticUrl;
@@ -21,7 +21,7 @@ const extractPostCoverImage = async (meta, pluginOptions, nodePluginArgs) => {
   const coverImageNodeId = await createOnlineSalesImage(
     fileNode,
     staticUrl,
-    nodePluginArgs
+    nodePluginArgs,
   );
 
   return { coverImageNodeId };

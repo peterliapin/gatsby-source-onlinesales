@@ -1,6 +1,7 @@
 const fs = require("fs-extra");
 const path = require("path");
-const { createRemoteFileNode } = require(`gatsby-source-filesystem`);
+
+const { createRemoteFileNode } = require("gatsby-source-filesystem");
 
 const processRemoteImage = async (url, scope, nodePluginArgs) => {
   const {
