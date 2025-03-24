@@ -9,7 +9,7 @@ const {
   getNodeSlug,
   stringifyPost,
 } = require("./utils");
-const { fetchPosts } = require("./fetchPosts");
+const { createDataProvider } = require("./providers");
 const {
   PAGE_NODE_TYPE,
   POST_NODE_TYPE,
@@ -24,7 +24,11 @@ exports.sourceNodes = async (nodePluginArgs, pluginOptions) => {
     createContentDigest,
   } = nodePluginArgs;
 
-  const postsData = await fetchPosts(pluginOptions);
+  // Create provider based on plugin options
+  const providerType = pluginOptions.provider || "onlinesales";
+  const provider = createDataProvider(providerType, pluginOptions);
+  
+  const postsData = await provider.fetchContent();
 
   // loop through data and create Gatsby nodes
   await Promise.all(
@@ -36,13 +40,13 @@ exports.sourceNodes = async (nodePluginArgs, pluginOptions) => {
       try {
         const { coverImageNodeId } = await extractPostCoverImage(
           meta,
-          pluginOptions,
+          provider,
           nodePluginArgs,
         );
 
         const { modifiedBody, imageFileNodes } = await extractImages(
           body,
-          pluginOptions,
+          provider,
           nodePluginArgs,
         );
 
